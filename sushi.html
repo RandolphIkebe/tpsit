@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .sushi-img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chatbot</h1>
+        <button id="btn1" class="btn">Istruzioni</button>
+        <button id="btn2" class="btn">Menu sushi</button>
+        <button id="btn3" class="btn">Ordini</button>
+        <div id="output" class="output"></div>
+    </div>
+    <script>
+        const btn1 = document.getElementById('btn1');
+        const btn2 = document.getElementById('btn2');
+        const btn3 = document.getElementById('btn3');
+        const output = document.getElementById('output');
+
+        const sushiMenu = [
+            { name: 'nigiri', image: 'nigiri.jpg' },
+            { name: 'hosomaki', image: 'hosomaki.jpg' },
+            { name: 'california rolls', image: 'california_rolls.jpg' },
+            { name: 'tiger roll', image: 'tiger_roll.jpg' },
+            { name: 'onigiri', image: 'onigiri.jpg' },
+            { name: 'uramaki', image: 'uramaki.jpg' },
+            { name: 'gunkan', image: 'gunkan.jpg' },
+            { name: 'futomaki', image: 'futomaki.jpg' },
+            { name: 'sashimi', image: 'sashimi.jpg' },
+            { name: 'salsa di soia', image: 'salsa_di_soia.jpg' }
+        ];
+
+        const orders = [];
+
+        btn1.addEventListener('click', () => {
+            output.textContent = 'CIAO. SONO UN INTELLIGENZA ARTIFICIALE CHE PREPARERA CIO CHE TI PIACCIONO';
+        });
+
+        btn2.addEventListener('click', () => {
+            output.innerHTML = '<ul>';
+            sushiMenu.forEach(sushi => {
+                output.innerHTML += `<li><img src="${sushi.image}" alt="${sushi.name}" class="sushi-img">${sushi.name}</li>`;
+            });
+            output.innerHTML += '</ul>';
+        });
+
+        btn3.addEventListener('click', () => {
+            const sushiToOrder = prompt('Scegli cosa ordinare tra gli elementi nel menù:');
+            if (sushiToOrder && sushiMenu.some(item => item.name === sushiToOrder)) {
+                orders.push(sushiToOrder);
+                output.textContent = 'Ordine effettuato con successo!';
+            } else {
+                output.textContent = 'Ordine non valido. Riprova.';
+            }
+        });
+    </script>
+</body>
+</html>
