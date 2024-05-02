@@ -1,0 +1,15 @@
+Math.min(blueDiv.offsetLeft, yellowDiv.offsetLeft) + 'px';
+      overlapDiv.style.top = Math.min(blueDiv.offsetTop, yellowDiv.offsetTop) + 'px';
+      overlapDiv.style.width = Math.abs(blueDiv.offsetLeft - yellowDiv.offsetLeft) + 'px';
+      overlapDiv.style.height = Math.abs(blueDiv.offsetTop - yellowDiv.offsetTop) + 'px';
+      overlapDiv.style.opacity = (overlapDiv.offsetWidth > 0 && overlapDiv.offsetHeight > 0) ? '1' : '0';
+    }
+
+    // Initialize positions
+    updatePositions();
+
+    // Update positions every second
+    setInterval(updatePositions, 1000);
+  </script>
+</body>
+</html>
