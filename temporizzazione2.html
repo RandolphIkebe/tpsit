@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test7</title>
+    <style>
+        .miediv {
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            border: 1px solid black;
+            top: 20px;
+            text-align: center;
+            color: black;
+        }
+    </style>
+    <script>
+        function inizia() {
+            var a = document.getElementsByClassName('miediv');
+            for (let i = 0; i < a.length; i++) {
+                a[i].style.backgroundColor = 'rgb(255,255,255)';
+                a[i].style.left = (i * 60) + 'px';
+            }
+
+            var b = new Array(a.length).fill(255);
+
+            setInterval(function () {
+                var pos = Math.floor(Math.random() * a.length);
+
+                if (b[pos] > 0) {
+                    b[pos] -= 5;
+                    a[pos].style.backgroundColor = 'rgb(' + b[pos] + ',' + b[pos] + ',255)';
+                    a[pos].innerHTML = b[pos];
+
+                    if (b[pos] < 120) {
+                        a[pos].style.color = 'white';
+                    }
+                } else {
+                    a[pos].style.display = 'none';
+                }
+
+            }, 100);
+        }
+    </script>
+</head>
+<body onload="inizia()">
+    <div class="miediv"></div>
+    <div class="miediv"></div>
+    <div class="miediv"></div>
+    <div class="miediv"></div>
+    <div class="miediv"></div>
+    <div class="miediv"></div>
+</body>
+</html>
