@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it" ng-app="imageApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidati pallone d'oro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        table {
+            width: 150%;
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        img {
+            max-width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        // Definizione dell'applicazione AngularJS
+        var app = angular.module('imageApp', []);
+
+        // Controller per gestire i dati delle immagini
+        app.controller('ImageController', function($scope) {
+            $scope.images = [
+                [
+                    { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCJHpU48Ffzyfzy-vcPlxunIHvWLvtNgwUsw&s', caption: 'Rodri' },
+                    { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqCUtBai4X4K9nIJJ_XFXWQ6K8TqBuWYnaxw&s', caption: 'Vinicius Jr' }
+                ],
+                [
+                    { src: 'https://cdn.calciomercato.com/images/2023-09/bellingham.real.madrid.2023.24.braccialarghe.1440x864.jpg', caption: 'Bellingham' },
+                    { src: 'https://imgresizer.eurosport.com/unsafe/1200x0/filters:format(jpeg)/origin-imgresizer.eurosport.com/2024/09/23/image-7baeea92-3ced-4e58-85d1-78fd648338f5-85-2560-1440.jpeg', caption: 'Carvajal' }
+                ],
+                [
+                    { src: 'https://assets.goal.com/images/v3/blt35f385017d79859e/Haaland_Manchester_City_Lipsia.jpg?auto=webp&format=pjpg&width=3840&quality=60', caption: 'Haaland' },
+                    { src: 'https://media.gqitalia.it/photos/639c834a7c83d2d715f03cc4/4:3/w_3192,h_2394,c_limit/Kylian%20Mbappe%20GettyImages-1245648009.jpg', caption: 'Mbappe' }
+                ],
+                [
+                    { src: 'https://www.interdipendenza.net/wp-content/uploads/2024/10/lautaro-martinez-pallone-doro-1024x683.jpg', caption: 'Martinez' },
+                    { src: 'https://cdn.calciomercato.com/images/2024-07/lamine.yamal.2024.francia.2100x1260.jpg', caption: 'Yamal' }
+                ],
+                [
+                    { src: 'https://ichef.bbci.co.uk/ace/standard/1600/cpsprodpb/71f4/live/326f1090-1765-11ef-806c-bf47bb1274cd.jpg', caption: 'Kroos' },
+                    { src: 'https://tmssl.akamaized.net//images/foto/galerie/kane-harry-jubel-fc-bayern-champions-league-1050366360-1726751521-148552.jpeg?lm=1726751531', caption: 'Kane' }
+                ]
+            ];
+        });
+
+        // Direttiva personalizzata per mostrare immagine e didascalia
+        app.directive('imageCaption', function() {
+            return {
+                restrict: 'E',
+                scope: {
+                    image: '=' // Passa l'immagine al template
+                },
+                template: `
+                    <div>
+                        <img ng-src="{{image.src}}" alt="{{image.caption}}">
+                        <p>{{image.caption}}</p>
+                    </div>
+                `
+            };
+        });
+    </script>
+</head>
+<body ng-controller="ImageController">
+
+    <h1>Candidati pallone d'oro</h1>
+    <table>
+        <tr ng-repeat="row in images">
+            <td ng-repeat="image in row">
+                <image-caption image="image"></image-caption>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
