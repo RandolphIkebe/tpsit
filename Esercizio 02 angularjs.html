@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verifica Targa Italiana</title>
+  <style>
+    /* Stile per evidenziare le targhe valide e non valide */
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    .valid {
+      background-color: #4CAF50; /* Verde per le targhe valide */
+      color: white;
+    }
+
+    .invalid {
+      background-color: #f44336; /* Rosso per le targhe non valide */
+      color: white;
+    }
+
+    input[type="text"] {
+      padding: 8px;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body ng-app="targaApp">
+
+  <div ng-controller="TargaController">
+    <h1>Inserisci una targa italiana</h1>
+
+    <!-- Form per inserire la targa -->
+    <input type="text" ng-model="targa" placeholder="Inserisci targa" />
+    <button ng-click="aggiungiTarga()">Aggiungi Targa</button>
+
+    <h2>Elenco Targhe</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Targa</th>
+          <th>Stato</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="t in targhe">
+          <td>{{ t.targa }}</td>
+          <td ng-class="{'valid': t.valida, 'invalid': !t.valida}">
+            {{ t.valida ? 'Valida' : 'Non Valida' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    // Definiamo il modulo dell'app AngularJS
+    var app = angular.module('targaApp', []);
+
+    // Controller per gestire l'inserimento e la validazione delle targhe
+    app.controller('TargaController', function($scope) {
+      // Array per contenere le targhe inserite
+      $scope.targhe = [];
+
+      // Funzione per validare la targa
+      function validaTarga(targa) {
+        var regex = /^[A-Z]{2}[0-9]{3}[A-Z]{2}$/i;  // Pattern per le targhe italiane
+        return regex.test(targa);
+      }
+
+      // Funzione per aggiungere una targa alla lista
+      $scope.aggiungiTarga = function() {
+        if ($scope.targa && validaTarga($scope.targa)) {
+          $scope.targhe.push({ targa: $scope.targa, valida: true });
+        } else {
+          $scope.targhe.push({ targa: $scope.targa, valida: false });
+        }
+        $scope.targa = '';  // Reset dell'input dopo l'inserimento
+      };
+    });
+  </script>
+</body>
+</html>
